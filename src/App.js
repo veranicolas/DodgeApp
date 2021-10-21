@@ -1,15 +1,11 @@
-// core
 import React from 'react';
 
-// 3rd party
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { Container } from '@mui/material';
 
-// components
 import { Login } from './components/Login/Login'
 import { Home } from './components/Home/Home'
 
-// assets
 import './App.css';
 
 
@@ -19,29 +15,30 @@ class App extends React.Component {
     super(props)
 
     this.state = {
-      login: true,
+      logged: false,
     }
+
+    this.checkLocalStorage = this.checkLocalStorage.bind(this)
+  }
+
+  componentDidMount(){
+    this.checkLocalStorage()
+  }
+
+  checkLocalStorage(){
+    localStorage.getItem('token_dodge') ? (this.setState(({ logged: true}))) : (this.setState(({logged:false})))
   }
 
   render(){
-    const { login } = this.state 
+    const { logged } = this.state 
 
     return (
       <Router>
         <Container>
           {
-            login ? <Login /> : <Home />
+            logged ? <Home /> : <Login />
           }
         </Container>
-  
-        {/* <Switch>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/home">
-            <Home />
-          </Route>
-        </Switch> */}
       </Router>
     );
   }
