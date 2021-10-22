@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router} from 'react-router-dom';
 import { Container } from '@mui/material';
 
 import { Login } from './components/Login/Login'
@@ -8,6 +8,15 @@ import { Home } from './components/Home/Home'
 
 import './App.css';
 
+const styleLight = {
+  color:'black',
+  backgroundColor:'white'
+}
+
+const styleDark = {
+  color:'white',
+  backgroundColor:'black'
+}
 
 class App extends React.Component {
 
@@ -16,13 +25,24 @@ class App extends React.Component {
 
     this.state = {
       logged: false,
+      theme: styleDark
     }
 
     this.checkLocalStorage = this.checkLocalStorage.bind(this)
+    this.changeTheme = this.changeTheme.bind(this)
   }
 
   componentDidMount(){
     this.checkLocalStorage()
+  }
+
+  changeTheme(){
+    this.setState((prevState)=>{
+      if(prevState.theme === styleLight){
+        return { theme: styleDark }
+      }
+      return { theme:styleLight }
+    })
   }
 
   checkLocalStorage(){
@@ -30,13 +50,13 @@ class App extends React.Component {
   }
 
   render(){
-    const { logged } = this.state 
+    const { logged, theme } = this.state 
 
     return (
       <Router>
         <Container>
           {
-            logged ? <Home /> : <Login />
+            logged ? <Home /> : <Login theme={theme} change={this.changeTheme}/>
           }
         </Container>
       </Router>
