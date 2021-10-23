@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { BrowserRouter as Router} from 'react-router-dom';
-import { Container } from '@mui/material';
 
 import { Login } from './components/Login/Login'
 import { Home } from './components/Home/Home'
@@ -9,13 +8,13 @@ import { Home } from './components/Home/Home'
 import './App.css';
 
 const styleLight = {
-  color:'black',
-  backgroundColor:'white'
+  color:'#191919',
+  backgroundColor:'#E6E6E6'
 }
 
 const styleDark = {
-  color:'white',
-  backgroundColor:'black'
+  color:'#E6E6E6',
+  backgroundColor:'#191919'
 }
 
 class App extends React.Component {
@@ -54,11 +53,9 @@ class App extends React.Component {
 
     return (
       <Router>
-        <Container>
-          {
-            logged ? <Home /> : <Login theme={theme} change={this.changeTheme}/>
-          }
-        </Container>
+        {
+          logged ? <Home /> : <Login theme={theme} change={this.changeTheme}/>
+        }
       </Router>
     );
   }
