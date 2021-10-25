@@ -1,59 +1,67 @@
-import { Button, Box, OutlinedInput, Typography } from '@mui/material'
+import * as React from 'react'
 import { Link } from 'react-router-dom'
 
-import { LoginBoxCss, FormCss, LinkCss, HrCss, ButtonBox, H2Css, H6Css} from './StylesLogin'
+import { Box, Typography } from '@mui/material'
+import { SignUpForm } from './SignupForm'
+import { LoginForm } from './LoginForm'
+
+import * as styles from './StylesLogin'
 import './Login.css'
 
 /* 
-Este componente deberia poder swapear entre login y signup.
 Al logearse o crear cuenta se debe pasar a la pantalla de homepage.
 El token de la sesion se guarda en el localstorage al pasar de pagina.
 */
 
-const Form = (props) =>
-    <form style={FormCss}>
-        <OutlinedInput
-            sx={{backgroundColor:'whitesmoke', marginBottom:'3vh'}}
-            color="primary" 
-            placeholder="Email" 
-            variant="outlined" 
-            focused
-        />
-        <OutlinedInput
-            sx={{backgroundColor:'whitesmoke'}}
-            type="password"
-            color="primary" 
-            placeholder="Password" 
-            variant="outlined" 
-            focused
-        />
-        <Box component="div" sx={ButtonBox}>
-            <Button sx={{color:'#1C9984', textTransform:'none'}} variant="text" onClick={props.change} size="large">Sign up</Button>
-            <Button sx={{backgroundColor:'#1C9984', textTransform:'none'}} variant="contained" onClick={props.change} size="large">Login</Button>
-        </Box>
-    </form>
 
 const Title = () =>
     <Box component="div" sx={{height:'30%'}}>
-        <Typography variant="h2" sx={H2Css}>DodgeList</Typography>
-        <Typography variant="h6" sx={H6Css}>Don't lose neither your LP nor your time!</Typography>
+        <Typography variant="h2" sx={styles.H2Css}>DodgeList</Typography>
+        <Typography variant="h6" sx={styles.H6Css}>Don't lose neither your LP nor your time!</Typography>
     </Box>
 
-const Login = (props) =>{
-    return(
-        <div className="mainBox">
-            <Box component="div" sx={{height:'100vh', width:'40%'}} style={props.theme}>
-                <Box component="div" sx={LoginBoxCss}>
-                    <Title />
-                    <Form change={props.change}/>
-                    <hr style={HrCss}/>
-                    <Typography variant="string" sx={{height:'18%'}}>
-                        <Link to="/" style={LinkCss}>Forgot your password?</Link>
-                    </Typography>
+
+class Login extends React.Component{
+    constructor(props){
+        super(props)
+
+        this.state = {
+            loginMode: true,
+            regions: ['BR','EUNE','EUW','JP','LAN','LAS','NA','OCE','RU','TR','KR']
+        }
+       this.changeForm = this.changeForm.bind(this)
+    }
+
+    changeForm(){
+        this.setState(prevState => ({loginMode: !prevState.loginMode}))
+    }
+
+    render(){
+        const { loginMode, regions } = this.state
+        return(
+            <div className="mainBox">
+                <Box component="div" sx={styles.LoginContainerCss} style={this.props.theme}>
+                    <Box component="div" sx={styles.LoginBoxCss}>
+                        <Title />
+                        {
+                            loginMode ? 
+                                (<LoginForm change={this.props.change} formType={this.changeForm}/>)
+                                :
+                                (<SignUpForm 
+                                    change={this.props.change} 
+                                    formType={this.changeForm}
+                                    regions={regions}
+                                />)
+                        }
+                        <Typography variant="string" sx={{height:'10%', margin:'10vh 0 0 0'}}>
+                            <hr style={styles.HrCss}/>
+                            <Link to="/" style={styles.LinkCss}>Forgot your password?</Link>
+                        </Typography>
+                    </Box>
                 </Box>
-            </Box>
-        </div>
-    )
+            </div>
+        )
+    }
 }
 
     

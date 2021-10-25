@@ -1,3 +1,9 @@
+const LoginContainerCss = {
+    height:'90vh', 
+    width:'40%',
+    borderRadius:'10px'
+}
+
 const LoginBoxCss = {
     height:'100%',
     display:'flex', 
@@ -17,6 +23,7 @@ const FormCss = {
 const LinkCss = {
     width:'100%', 
     display:'block',
+    marginTop:'3vh',
     textAlign:'center',
     textDecoration:'none',
     color:'#5BCAB4'
@@ -49,4 +56,4 @@ const H6Css = {
     fontWeight:'regular'
 }
 
-export { LoginBoxCss, FormCss, LinkCss, HrCss, ButtonBox, H2Css, H6Css }
+export { LoginBoxCss, FormCss, LinkCss, HrCss, ButtonBox, H2Css, H6Css, LoginContainerCss }
