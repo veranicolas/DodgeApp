@@ -45,7 +45,7 @@ class Login extends React.Component{
                         <Title />
                         {
                             loginMode ? 
-                                (<LoginForm change={this.props.change} formType={this.changeForm}/>)
+                                (<LoginForm change={this.props.change} formType={this.changeForm} check={this.props.check}/>)
                                 :
                                 (<SignUpForm 
                                     change={this.props.change} 

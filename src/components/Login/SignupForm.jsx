@@ -59,7 +59,7 @@ const SignUpForm = (props) =>{
                 <Button 
                     sx={{backgroundColor:'#1C9984', textTransform:'none'}} 
                     variant="contained" 
-                    onClick={props.change} 
+                    onClick={console.log('y si')} 
                     size="large"
                 >
                     Sign up
